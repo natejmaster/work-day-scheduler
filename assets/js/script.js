@@ -3,17 +3,17 @@
 // in the html.
 $(function () {
   let today = dayjs();
-  let saveButton = $('#saveBtn')
-  let workDaySchedule = $('#work-day-schedule')
+  let saveButton = $('#saveBtn');
+  let workDaySchedule = $('#work-day-schedule');
   //The line below populates the h3 element at the top of the daily schedule with an up-to-date date and time
   $('#current-date-time').text(today.format('[Today is] MMM D, YYYY [ at ] h:mm a'));
   //Code that populates the workDayCalendar with workHour divs that have all the content appended as children
   //Ensures that the for loop begins at 9 and ends after 17 (the 24 hour clock version of 5)
   for (let i = 9; i <= 17; i++) {
+    (function () {
     //For each index above, a div element is created for that specific hour
     let workHour = document.createElement('div');
     workHour.id = `hour-${i}`;
-    workHour.className = 'row time-block';
     //Within each workHour div, there is a specific box for the name of the hour
     let hourDiv = document.createElement('div');
     hourDiv.className = 'col-2 col-md-1 hour text-center py-3';
@@ -32,14 +32,27 @@ $(function () {
     icon.className = 'fas fa-save';
     icon.setAttribute('aria-hidden', 'true');
     //Append the icon to the button
-    button.appendChild(icon);
+    button.append(icon);
     //Append the box that names the hour, the textarea, and the button to the workHour div
-    workHour.appendChild(hourDiv);
-    workHour.appendChild(textarea);
-    workHour.appendChild(button);
+    workHour.append(hourDiv);
+    workHour.append(textarea);
+    workHour.append(button);
     //Append the newly-created workHour div to the larger container, workDaySchedule
     workDaySchedule.append(workHour);
-  }
+
+    function setHourClass() {
+      let currentHour = today.format('H');
+      if (currentHour > i) {
+        workHour.setAttribute('class', 'row time-block past');
+      } else if (currentHour === i) {
+        workHour.setAttribute('class', 'row time-block present');
+      } else {
+        workHour.setAttribute('class', 'row time-block future');
+      }
+    }
+    setHourClass();
+  }) ();
+}
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -49,6 +62,7 @@ $(function () {
   saveButton.on('click'), function () {
 
   }
+  });
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -59,4 +73,3 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
