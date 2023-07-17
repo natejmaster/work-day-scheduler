@@ -3,36 +3,40 @@
 // in the html.
 $(function () {
   let saveButton = $('#saveBtn')
-  let workDayCalendar = $('#work-day-calendar')
+  let workDaySchedule = $('#work-day-schedule')
 
+  //Code that populates the workDayCalendar with workHour divs that have all the content appended as children
+  //Ensures that the for loop begins at 9 and ends after 17 (the 24 hour clock version of 5)
   for (let i = 9; i <= 17; i++) {
+    //For each index above, a div element is created for that specific hour
     let workHour = document.createElement('div');
     workHour.id = `hour-${i}`;
     workHour.className = 'row time-block';
-
+    //Within each workHour div, there is a specific box for the name of the hour
     let hourDiv = document.createElement('div');
     hourDiv.className = 'col-2 col-md-1 hour text-center py-3';
     //Formula to convert 24 hour times to 12 hour times taken from Stack Overflow: https://stackoverflow.com/questions/13898423/javascript-convert-24-hour-time-of-day-string-to-12-hour-time-with-am-pm-and-no
     hourDiv.textContent = `${i % 12 === 0 ? 12 : i % 12}${i < 12 ? 'AM' : 'PM'}`;
-
+    //Within each workHour div, there is a textarea that the user can populate with text
     let textarea = document.createElement('textarea');
     textarea.className = 'col-8 col-md-10 description';
     textarea.rows = 3;
-
+    //Within each workHour div, there is a button that will trigger saving the text to localStorage (event listener added later)
     let button = document.createElement('button');
     button.className = 'btn saveBtn col-2 col-md-1';
     button.setAttribute('aria-label', 'save');
-
+    //Each button uses the 'save' icon, so an icon must be added to each div that contains the icon
     let icon = document.createElement('i');
     icon.className = 'fas fa-save';
     icon.setAttribute('aria-hidden', 'true');
-
+    //Append the icon to the button
     button.appendChild(icon);
+    //Append the box that names the hour, the textarea, and the button to the workHour div
     workHour.appendChild(hourDiv);
     workHour.appendChild(textarea);
     workHour.appendChild(button);
-
-    workDayCalendar.append(workHour);
+    //Append the newly-created workHour div to the larger container, workDaySchedule
+    workDaySchedule.append(workHour);
   }
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
