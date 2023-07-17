@@ -44,7 +44,7 @@ $(function () {
       let currentHour = today.format('H');
       if (currentHour > i) {
         workHour.setAttribute('class', 'row time-block past');
-      } else if (currentHour === i) {
+      } else if (currentHour == i) {
         workHour.setAttribute('class', 'row time-block present');
       } else {
         workHour.setAttribute('class', 'row time-block future');
