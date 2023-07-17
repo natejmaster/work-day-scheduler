@@ -2,9 +2,11 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+  let today = dayjs();
   let saveButton = $('#saveBtn')
   let workDaySchedule = $('#work-day-schedule')
-
+  //The line below populates the h3 element at the top of the daily schedule with an up-to-date date and time
+  $('#current-date-time').text(today.format('[Today is] MMM D, YYYY [ at ] h:mm a'));
   //Code that populates the workDayCalendar with workHour divs that have all the content appended as children
   //Ensures that the for loop begins at 9 and ends after 17 (the 24 hour clock version of 5)
   for (let i = 9; i <= 17; i++) {
@@ -52,7 +54,6 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
-  //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
