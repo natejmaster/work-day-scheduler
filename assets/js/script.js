@@ -60,9 +60,13 @@ $(function () {
   // useful when saving the description in local storage?
   let saveButton = $('.saveBtn');
   saveButton.on('click', function () {
-    window.alert('Click!');
+    let textarea = $(this).prevAll('.description').first();
+    let description = textarea.val();
+
+    let hourId = $(this).closest('.time-block').attr('id');
+    localStorage.setItem(hourId, description);
   });
-});
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+});
