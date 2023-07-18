@@ -69,4 +69,15 @@ $(function () {
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+  function populateCalendar() {
+    for (let i = 9; i <= 17; i++) {
+      let hourId = `hour-${i}`;
+      let description = localStorage.getItem(hourId);
+      if (description) {
+        $(`#${hourId} .description`).val(description);
+      }
+    }
+  }
+
+  populateCalendar();
 });
